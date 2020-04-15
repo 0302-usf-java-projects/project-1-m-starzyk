@@ -74,17 +74,20 @@ public class AccountDao implements DaoContract<Reimbursement> {
 	}
 
 	public int findEmployeeRank(String username) {
-		int role = 0;
 		try(Connection conn = ConnectionUtil.connect()){
-			String sql = "select user_role_id from ers_users where username = '?'";
+			String sql = "select * from ers_users where ers_username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			role = rs.getInt(7);
+			int role = 0;
+			while (rs.next()) {
+				role = rs.getInt(7);			
+			}
+			return role;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return role;
+		return 0;
 	}
 
 //	public String findPasswordFromUsername(String username) {
@@ -104,12 +107,15 @@ public class AccountDao implements DaoContract<Reimbursement> {
 	public boolean authenticateHashPass(String username, String password) {
 		String foundUser = null;
 		try (Connection conn = ConnectionUtil.connect()) {
-			String sql = "select ers_username from ers_users where ers_password = md5('?'||'?'||'space_truckin')";
+			String sql = "select ers_username from ers_users where ers_password = md5(?||?||'space_truckin')";
+//			String sql = "select ers_username from ers_users where ers_password = md5('mhstarz'||'password'||'space_truckin')";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
-			foundUser = rs.getString(2);
+			while (rs.next()) {
+				foundUser = rs.getString(1);		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

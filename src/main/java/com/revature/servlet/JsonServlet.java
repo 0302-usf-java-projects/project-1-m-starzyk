@@ -15,7 +15,7 @@ public class JsonServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestHelper.process(req, resp);
+		req.getRequestDispatcher(RequestHelper.process(req, resp)).forward(req, resp);;
 	}
 	
 }

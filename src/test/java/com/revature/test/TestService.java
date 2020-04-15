@@ -33,13 +33,26 @@ public class TestService {
 	}
 	
 	@Test
-	public void rejectTicketAsAdmin() {
-		ad.rejectTicket(1, 4);
+	public void recieveUserRoleOfStarz() {
+		int rank = ad.findEmployeeRank("mhstarz");
+		System.out.println(rank);
 	}
 	
 	@Test
-	public void foundTheWorker() {
-		ad.findEmployeeRank();
+	public void recieveUserRoleOftest2() {
+		int rank = ad.findEmployeeRank("test2");
+		System.out.println(rank);
+	}
+	
+//	@Test
+//	public void rejectTicketAsAdmin() {
+//		ad.rejectTicket(1, 4);
+//	}
+	
+	@Test
+	public void authenticateUser() {
+		boolean test = ad.authenticateHashPass("mhstar1z", "password");
+		System.out.println(test);
 	}
 	
 }
