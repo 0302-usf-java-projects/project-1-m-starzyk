@@ -24,9 +24,9 @@ public class User {
 	
 	public void setUsername(String username) throws DuplicateUsernameException {
 		//TODO pull from data base
-	    if(Account.usernames.contains(username)) {
-	        throw new DuplicateUsernameException();
-	      }
+//	    if(Account.usernames.contains(username)) {
+//	        throw new DuplicateUsernameException();
+//	      }
 		this.username = username;
 	}
 	
@@ -41,14 +41,6 @@ public class User {
 			throw new PasswordTooLongException();
 		}	
 		this.password = password;
-	}
-	
-	public boolean authenticate(String username, String password) {
-		
-		AccountService as = new AccountService();
-		String userPass = as.getPassword(username);
-		return userPass.equals(password);
-		//return this.username.equals(username) && this.password.equals(password);
 	}
 	
 	public String getFirstName() {

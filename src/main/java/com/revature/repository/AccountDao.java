@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.model.Reimbursement;
+import com.revature.service.AccountService;
 
 public class AccountDao implements DaoContract<Reimbursement> {
 
@@ -86,18 +87,33 @@ public class AccountDao implements DaoContract<Reimbursement> {
 		return role;
 	}
 
-	public String findPasswordFromUsername(String username) {
-		String pass = null;
+//	public String findPasswordFromUsername(String username) {
+//		String pass = null;
+//		try (Connection conn = ConnectionUtil.connect()) {
+//			String sql = "select ers_password from ers_users where username = '?'";
+//			PreparedStatement ps = conn.prepareStatement(sql);
+//			ps.setString(1, username);
+//			ResultSet rs = ps.executeQuery();
+//			pass = rs.getString(3);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return pass;
+//	}
+
+	public boolean authenticateHashPass(String username, String password) {
+		String foundUser = null;
 		try (Connection conn = ConnectionUtil.connect()) {
-			String sql = "select ers_password from ers_users where username = '?'";
+			String sql = "select ers_username from ers_users where ers_password = md5('?'||'?'||'space_truckin')";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
+			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
-			pass = rs.getString(3);
+			foundUser = rs.getString(2);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return pass;
+		return username.equals(foundUser);
 	}
-
+	
 }

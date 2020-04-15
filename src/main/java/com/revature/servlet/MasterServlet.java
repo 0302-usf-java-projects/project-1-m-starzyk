@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.revature.controller.RequestHelper;
 
-@WebServlet(urlPatterns = {"*.json"})
-public class JsonServlet extends HttpServlet {
-	
+@WebServlet(urlPatterns = {"*.master"}, loadOnStartup = -1)
+public class MasterServlet extends HttpServlet{
+
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestHelper.process(req, resp);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher(
+					RequestHelper.process(req, resp))
+			.forward(req, resp);
 	}
-	
 }
-
-
