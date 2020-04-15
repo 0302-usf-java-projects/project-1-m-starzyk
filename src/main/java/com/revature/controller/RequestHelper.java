@@ -14,7 +14,7 @@ public class RequestHelper {
 		switch(req.getRequestURI()) {
 		case "/Project/index.master":
 			return Controller.home();
-		case "/Project1/signin.json":
+		case "/Project1/signin.master":
 			return Controller.login(req, res);
 		default:
 			return "";

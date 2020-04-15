@@ -19,4 +19,11 @@ public class MasterServlet extends HttpServlet{
 					RequestHelper.process(req, resp))
 			.forward(req, resp);
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher(
+					RequestHelper.process(req, resp))
+			.forward(req, resp);
+	}
 }
