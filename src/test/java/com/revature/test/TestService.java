@@ -32,4 +32,14 @@ public class TestService {
 		System.out.println(list);
 	}
 	
+	@Test
+	public void rejectTicketAsAdmin() {
+		ad.rejectTicket(1, 4);
+	}
+	
+	@Test
+	public void foundTheWorker() {
+		ad.findEmployeeRank();
+	}
+	
 }

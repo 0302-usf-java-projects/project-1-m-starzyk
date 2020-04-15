@@ -1,7 +1,9 @@
 package com.revature.model;
 
+import com.revature.exception.DuplicateUsernameException;
 import com.revature.exception.PasswordTooLongException;
 import com.revature.exception.PasswordTooShortException;
+import com.revature.service.AccountService;
 
 public class User {
 	
@@ -19,12 +21,19 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
+	
+	public void setUsername(String username) throws DuplicateUsernameException {
+		//TODO pull from data base
+	    if(Account.usernames.contains(username)) {
+	        throw new DuplicateUsernameException();
+	      }
 		this.username = username;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) throws PasswordTooShortException, PasswordTooLongException {
 		if(password.length() < REQUIRED_PASSWORD_LENGTH) {
 			throw new PasswordTooShortException();
@@ -32,6 +41,14 @@ public class User {
 			throw new PasswordTooLongException();
 		}	
 		this.password = password;
+	}
+	
+	public boolean authenticate(String username, String password) {
+		
+		AccountService as = new AccountService();
+		String userPass = as.getPassword(username);
+		return userPass.equals(password);
+		//return this.username.equals(username) && this.password.equals(password);
 	}
 	
 	public String getFirstName() {

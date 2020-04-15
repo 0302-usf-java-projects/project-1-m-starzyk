@@ -3,16 +3,14 @@ package com.revature.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.controller.LandingController;
-import com.example.controller.ClownController;
 //TODO: edit this for the project 1 urls
 public class RequestHelper {
 	
 	public static String process(HttpServletRequest req) {
 		System.out.println(req.getRequestURI());
 		switch(req.getRequestURI()) {
-		case "/FrontControllerProject/landing.master":
-			return Controller.home();
+		case "/project-1-m-starzyk/signin.json":
+			return Controller.login(req);
 		case "/FrontControllerProject/gonext.master":
 			return "html/second.html";
 		default:

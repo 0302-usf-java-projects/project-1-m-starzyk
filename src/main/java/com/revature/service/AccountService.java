@@ -15,4 +15,13 @@ public class AccountService {
 	public List<Reimbursement> getAllAccounts(){
 		return adao.findAllTickets();
 	}
+	
+	public String getPassword(String username) {
+		return adao.findPasswordFromUsername(username);
+	}
+	
+	public int employeeType(String username) {
+		return adao.findEmployeeRank(username);
+	}
+	
 }
