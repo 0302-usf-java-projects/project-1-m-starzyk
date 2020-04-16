@@ -49,6 +49,24 @@ public class AccountDao implements DaoContract<Reimbursement> {
 		}
 		return null;
 	}
+	
+	public List<Reimbursement> findAllTicketsSorted() {
+		try (Connection conn = ConnectionUtil.connect()) {
+			String sql = "select * from ers_reimbursement order by reimb_status_id";
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			//ResultSet rs = ps.executeQuery();
+			List<Reimbursement> list = new ArrayList<>();
+			while (rs.next()) {
+				list.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getBytes(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10)));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public void rejectTicket(int res, int id) {
 		try (Connection conn = ConnectionUtil.connect()) {
@@ -57,6 +75,7 @@ public class AccountDao implements DaoContract<Reimbursement> {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, res);
 			ps.setInt(2, id);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,6 +88,7 @@ public class AccountDao implements DaoContract<Reimbursement> {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, res);
 			ps.setInt(2, id);
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

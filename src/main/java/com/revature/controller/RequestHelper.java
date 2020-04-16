@@ -33,6 +33,9 @@ public class RequestHelper {
 		case "/Project1/view-all.json":
 			new Controller().viewAllReimb(req, res);
 			break;
+		case "/Project1/view-all-sorted.json":
+			new Controller().viewAllReimbSorted(req, res);
+			break;
 		}
 	}
 

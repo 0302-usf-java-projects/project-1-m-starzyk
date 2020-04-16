@@ -24,6 +24,10 @@ public class AccountService {
 		return adao.findAllTickets();
 	}
 	
+	public List<Reimbursement> getAllSortedTickets() {
+		return adao.findAllTicketsSorted();
+	}
+	
 //	public String getPassword(String username) {
 //		return adao.findPasswordFromUsername(username);
 //	}

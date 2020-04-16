@@ -6,6 +6,7 @@ public interface DaoContract <T>{
 	
 	List<T> findTicketsByUsername(int i);
 	List<T> findAllTickets();
+	List<T> findAllTicketsSorted();
 	void rejectTicket(int res, int id);
 	void acceptTicket(int res, int id);
 	int findEmployeeRank(String username);

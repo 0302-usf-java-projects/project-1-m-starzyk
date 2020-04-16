@@ -110,4 +110,23 @@ public class Controller {
 		}
 	}
 	
+	public static void viewAllReimbSorted(HttpServletRequest req, HttpServletResponse res) {
+		AccountService as = new AccountService();
+		List<Reimbursement> rList = as.getAllSortedTickets();
+		System.out.println(rList);
+		try {
+			int i = 0;
+			while(i < rList.size() ) {
+				res.getWriter().write( new ObjectMapper().writeValueAsString(rList.get(i)));
+			i++;
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
