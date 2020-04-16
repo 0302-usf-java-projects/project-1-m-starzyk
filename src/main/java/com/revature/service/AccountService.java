@@ -16,6 +16,14 @@ public class AccountService {
 		return adao.findAllTickets();
 	}
 	
+	public List<Reimbursement> getMyReimb(int i){
+		return adao.findTicketsByUsername(i);
+	}
+	
+	public List<Reimbursement> getAllReimb() {
+		return adao.findAllTickets();
+	}
+	
 //	public String getPassword(String username) {
 //		return adao.findPasswordFromUsername(username);
 //	}

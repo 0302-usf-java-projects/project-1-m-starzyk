@@ -9,8 +9,13 @@
 <body onload ="aFunction()">
 	<p>Employee Page</p>
 	<button onclick="aFunction()" type="button" class="btn btn-default">Create New Reimbursement Request</button>
-	<button type="button" class="btn btn-primary">View Past Requests</button>
-	<button id="test" type="button" class="btn btn-danger">Logout</button>
+	
+	<form action="./viewer.json" method="get">
+		<button type="submit" class="btn btn-primary">View Past Requests</button>
+	</form>
+	
+	<button id = "logoutButton" type="button" class="btn btn-danger">Logout</button>
+
 	<div id="test"></div>
 	<br>
 	<br>
@@ -82,6 +87,11 @@ function aFunction(){
 
 </script>
 
+<script type="text/javascript">
+	document.getElementById("logoutButton").onclick = function(){
+		location.href = "/Project1/";
+	}
+</script>
 </body>
 
 

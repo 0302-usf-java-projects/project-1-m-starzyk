@@ -44,10 +44,10 @@ public class TestService {
 		System.out.println(rank);
 	}
 	
-//	@Test
-//	public void rejectTicketAsAdmin() {
-//		ad.rejectTicket(1, 4);
-//	}
+	@Test
+	public void rejectTicketAsAdmin() {
+		ad.rejectTicket(10, 5);
+	}
 	
 	@Test
 	public void authenticateUser() {

@@ -25,6 +25,7 @@ public class AccountDao implements DaoContract<Reimbursement> {
 				list.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getBytes(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10)));
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,8 +52,8 @@ public class AccountDao implements DaoContract<Reimbursement> {
 
 	public void rejectTicket(int res, int id) {
 		try (Connection conn = ConnectionUtil.connect()) {
-			Statement s = conn.createStatement();
-			String sql = "update ers_reimbursement set reimb_status_id = 3, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?;";
+			//Statement s = conn.createStatement();
+			String sql = "update ers_reimbursement set reimb_status_id = 3, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, res);
 			ps.setInt(2, id);
@@ -64,7 +65,7 @@ public class AccountDao implements DaoContract<Reimbursement> {
 	public void acceptTicket(int res, int id) {
 		try (Connection conn = ConnectionUtil.connect()) {
 			Statement s = conn.createStatement();
-			String sql = "update ers_reimbursement set reimb_status_id = 2, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?;";
+			String sql = "update ers_reimbursement set reimb_status_id = 2, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, res);
 			ps.setInt(2, id);

@@ -15,7 +15,12 @@ public class JsonServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestHelper.process(req, resp);
+		RequestHelper.directProcess(req, resp);
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RequestHelper.directProcess(req, resp);
 	}
 	
 }

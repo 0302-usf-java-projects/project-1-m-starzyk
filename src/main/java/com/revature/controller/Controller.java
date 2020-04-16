@@ -3,22 +3,30 @@ package com.revature.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.model.Reimbursement;
 import com.revature.model.User;
 import com.revature.service.AccountService;
 
 public class Controller {
+	//private AccountServise as; use this once project is done
 	static String username = null;
 	//final static Logger logger = Logger.getLogger(Controller.class);
 	
 	public static String home() {
 		return "html/index.html";
+	}
+	
+	public static void logout() {
+		username = null;
 	}
 	
 	public static String login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -62,5 +70,44 @@ public class Controller {
 		return null;
 	}
 	
+	public static void viewMyReimb(HttpServletRequest req, HttpServletResponse res) {
+		AccountService as = new AccountService();
+		String auther = as.getAuthorNumber(username);
+		int author = Integer.parseInt(auther);
+		List<Reimbursement> rList = as.getMyReimb(author);
+		System.out.println(rList);
+		try {
+			int i = 0;
+			while(i < rList.size() ) {
+				res.getWriter().write( new ObjectMapper().writeValueAsString(rList.get(i)));
+			i++;
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void viewAllReimb(HttpServletRequest req, HttpServletResponse res) {
+		AccountService as = new AccountService();
+		List<Reimbursement> rList = as.getAllReimb();
+		System.out.println(rList);
+		try {
+			int i = 0;
+			while(i < rList.size() ) {
+				res.getWriter().write( new ObjectMapper().writeValueAsString(rList.get(i)));
+			i++;
+			}
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

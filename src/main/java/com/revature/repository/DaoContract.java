@@ -10,6 +10,8 @@ public interface DaoContract <T>{
 	void acceptTicket(int res, int id);
 	int findEmployeeRank(String username);
 	boolean authenticateHashPass(String username, String password);
+	public String findAuthor(String username);
+	public void makeNewReimb(int amount, String description, int type, int author);
 	
 
 }

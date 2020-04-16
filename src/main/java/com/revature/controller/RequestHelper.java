@@ -12,6 +12,7 @@ public class RequestHelper {
 		System.out.println(req.getRequestURI());
 		switch(req.getRequestURI()) {
 		case "/Project/index.master":
+			Controller.logout();
 			return Controller.home();
 		case "/Project1/signin.master":
 			return Controller.login(req, res);
@@ -23,16 +24,16 @@ public class RequestHelper {
 		}
 	}
 	
-//	public static void directProcess(HttpServletRequest req, HttpServletResponse res) {
-//		System.out.println(req.getRequestURI());
-//		switch(req.getRequestURI()) {
-//		case "/project-1-m-starzyk/signin.json":
-//			return Controller.login(req);
-//		case "/FrontControllerProject/gonext.master":
-//			return "html/second.html";
-//		default:
-//			return "";
-//		}
-//	}
+	public static void directProcess(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println(req.getRequestURI());
+		switch(req.getRequestURI()) {
+		case "/Project1/viewer.json":
+			new Controller().viewMyReimb(req, res);
+			break;
+		case "/Project1/view-all.json":
+			new Controller().viewAllReimb(req, res);
+			break;
+		}
+	}
 
 }
