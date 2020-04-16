@@ -6,9 +6,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body onload ="aFunction()">
+<body onload ="aFunction(); bFunction();">
 	<p>Manager Page</p>
 	<button onclick="aFunction()" type="button" class="btn btn-default">Create New Reimbursement Request</button>
+	<button onclick="bFunction()" type="button" class="btn btn-default">Approve/Deny A Request</button>
 	
 	<form action="./view-all.json" method="get">
 		<button type="submit" class="btn btn-primary">View All Requests</button>
@@ -70,6 +71,38 @@
   </div>
 </form>
 	
+		<form id = "hidden2" action = "./reimb-ad.master" method = "post">
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Reimbusement Request ID</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" name="Reimb_ID" id="inputEmail3" placeholder="ID">
+    </div>
+  </div>
+  <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Approve or Deny</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="aord" id="gridRadios1" value="2">
+          <label class="form-check-label" for="gridRadios1">
+            Approve Reimbursement
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="aord" id="gridRadios2" value="3">
+          <label class="form-check-label" for="gridRadios2">
+            Deny Reimbursement
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Confirm</button>
+    </div>
+  </div>
+</form>
 	
 	
 	
@@ -88,8 +121,21 @@ function aFunction(){
 	//.innerHTML = "pressed button";
 	//document.getElementById("test").style.display = "none";
 }
-
 </script>
+
+
+<script>
+function bFunction(){
+	var m = document.getElementById("hidden2");
+	if(m.style.display === "none"){
+		m.style.display = "block";
+	} else {
+		m.style.display = "none";
+	}
+}
+</script>
+
+
 
 <script type="text/javascript">
 	document.getElementById("logoutButton").onclick = function(){

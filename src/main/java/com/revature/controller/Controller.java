@@ -53,6 +53,7 @@ public class Controller {
 			return "html/index.html";
 		}
 	}
+	
 	public static String formSubmit(HttpServletRequest req, HttpServletResponse res) {
 		String money = req.getParameter("money");
 		String description = req.getParameter("desc");
@@ -129,4 +130,19 @@ public class Controller {
 		}
 	}
 	
+	public static String resolveTickets(HttpServletRequest req, HttpServletResponse res) {
+		String aord = req.getParameter("aord");
+		String reimbId = req.getParameter("Reimb_ID");
+		AccountService as = new AccountService();
+		String auther = as.getAuthorNumber(username);
+		
+		int action = Integer.parseInt(aord);
+		int id = Integer.parseInt(reimbId);
+		int resolver = Integer.parseInt(auther);
+		
+		as.updateTicketStatus(action, resolver, id);
+		
+		return null;
+
+	}
 }

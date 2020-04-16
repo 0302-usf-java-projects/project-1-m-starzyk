@@ -19,6 +19,9 @@ public class RequestHelper {
 		case "/Project1/reimb.master":
 			Controller.formSubmit(req, res);
 			return "html/employee.html";
+		case "/Project1/reimb-ad.master":
+			new Controller().resolveTickets(req, res);
+			return "html/manager.html";
 		default:
 			return "";
 		}
@@ -36,6 +39,7 @@ public class RequestHelper {
 		case "/Project1/view-all-sorted.json":
 			new Controller().viewAllReimbSorted(req, res);
 			break;
+
 		}
 	}
 

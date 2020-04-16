@@ -68,31 +68,32 @@ public class AccountDao implements DaoContract<Reimbursement> {
 		return null;
 	}
 
-	public void rejectTicket(int res, int id) {
+	public void resolveTicket(int action, int res, int id) {
 		try (Connection conn = ConnectionUtil.connect()) {
 			//Statement s = conn.createStatement();
-			String sql = "update ers_reimbursement set reimb_status_id = 3, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?";
+			String sql = "update ers_reimbursement set reimb_status_id = ?, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, res);
-			ps.setInt(2, id);
+			ps.setInt(1, action);
+			ps.setInt(2, res);
+			ps.setInt(3, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void acceptTicket(int res, int id) {
-		try (Connection conn = ConnectionUtil.connect()) {
-			Statement s = conn.createStatement();
-			String sql = "update ers_reimbursement set reimb_status_id = 2, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, res);
-			ps.setInt(2, id);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void acceptTicket(int res, int id) {
+//		try (Connection conn = ConnectionUtil.connect()) {
+//			Statement s = conn.createStatement();
+//			String sql = "update ers_reimbursement set reimb_status_id = 2, reimb_resolved = current_timestamp, reimb_resolver = ? where reimb_id = ?";
+//			PreparedStatement ps = conn.prepareStatement(sql);
+//			ps.setInt(1, res);
+//			ps.setInt(2, id);
+//			ps.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public int findEmployeeRank(String username) {
 		try(Connection conn = ConnectionUtil.connect()){

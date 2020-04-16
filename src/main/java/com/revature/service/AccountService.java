@@ -28,6 +28,9 @@ public class AccountService {
 		return adao.findAllTicketsSorted();
 	}
 	
+	public void updateTicketStatus(int action, int res, int id) {
+		adao.resolveTicket(action, res, id);
+	}
 //	public String getPassword(String username) {
 //		return adao.findPasswordFromUsername(username);
 //	}
