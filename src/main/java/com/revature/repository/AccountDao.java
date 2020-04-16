@@ -30,13 +30,13 @@ public class AccountDao implements DaoContract<Reimbursement> {
 		}
 		return null;
 	}
-
-	@Override
+	
 	public List<Reimbursement> findAllTickets() {
 		try (Connection conn = ConnectionUtil.connect()) {
 			String sql = "select * from ers_reimbursement";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			//ResultSet rs = ps.executeQuery();
 			List<Reimbursement> list = new ArrayList<>();
 			while (rs.next()) {
 				list.add(new Reimbursement(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
@@ -108,7 +108,6 @@ public class AccountDao implements DaoContract<Reimbursement> {
 		String foundUser = null;
 		try (Connection conn = ConnectionUtil.connect()) {
 			String sql = "select ers_username from ers_users where ers_password = md5(?||?||'space_truckin')";
-//			String sql = "select ers_username from ers_users where ers_password = md5('mhstarz'||'password'||'space_truckin')";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ps.setString(2, password);
@@ -120,6 +119,39 @@ public class AccountDao implements DaoContract<Reimbursement> {
 			e.printStackTrace();
 		}
 		return username.equals(foundUser);
+	}
+	
+	public String findAuthor(String username) {
+		try(Connection conn = ConnectionUtil.connect()){
+			String sql = "select * from ers_users where ers_username = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			int id = 0;
+			while (rs.next()) {
+				id = rs.getInt(1);			
+			}
+			String idAuthor = Integer.toString(id);
+			return idAuthor;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void makeNewReimb(int amount, String description, int type, int author) {
+		try(Connection conn = ConnectionUtil.connect()){
+			String sql = "insert into ers_reimbursement (reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id) " + 
+					"values (?, current_timestamp, ?, ?, 1,?);";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, amount);
+			ps.setString(2, description);
+			ps.setInt(3, author);
+			ps.setInt(4, type);
+			ResultSet rs = ps.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

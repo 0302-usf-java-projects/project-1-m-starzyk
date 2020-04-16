@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//TODO: edit this for the project 1 urls
 public class RequestHelper {
 	
 	public static String process(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -16,6 +15,9 @@ public class RequestHelper {
 			return Controller.home();
 		case "/Project1/signin.master":
 			return Controller.login(req, res);
+		case "/Project1/reimb.master":
+			Controller.formSubmit(req, res);
+			return "html/employee.html";
 		default:
 			return "";
 		}

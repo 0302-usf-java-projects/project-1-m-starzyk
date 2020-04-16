@@ -27,5 +27,10 @@ public class AccountService {
 	public boolean authenticate(String username, String password) {
 		return adao.authenticateHashPass(username, password);
 	}
-	
+	public String getAuthorNumber(String username) {
+		return adao.findAuthor(username);
+	}
+	public void newReimb(int amount, String description, int type, int author) {
+		adao.makeNewReimb(amount, description, type, author);
+	}
 }

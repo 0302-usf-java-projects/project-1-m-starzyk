@@ -1,12 +1,88 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
-    </head>
+<body onload ="aFunction()">
+	<p>Employee Page</p>
+	<button onclick="aFunction()" type="button" class="btn btn-default">Create New Reimbursement Request</button>
+	<button type="button" class="btn btn-primary">View Past Requests</button>
+	<button id="test" type="button" class="btn btn-danger">Logout</button>
+	<div id="test"></div>
+	<br>
+	<br>
+	
+	
+	<form id = "hidden" action = "./reimb.master" method = "post">
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Credit Amount</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" name="money" id="inputEmail3" placeholder="Credits">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name = "desc" id="inputPassword3">
+    </div>
+  </div>
+  <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Reimbursement Type</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="rType" id="gridRadios1" value="2">
+          <label class="form-check-label" for="gridRadios1">
+            Fuel
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="rType" id="gridRadios2" value="3">
+          <label class="form-check-label" for="gridRadios2">
+            Ship Parts
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <input class="form-check-input" type="radio" name="rType" id="gridRadios3" value="4">
+          <label class="form-check-label" for="gridRadios3">
+            Ship Replacement
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Submit Request</button>
+    </div>
+  </div>
+</form>
+	
+	
+	
+	
+	
+	
+	
+	
+<script>
+function aFunction(){
+	var m = document.getElementById("hidden");
+	if(m.style.display === "none"){
+		m.style.display = "block";
+	} else {
+		m.style.display = "none";
+	}
+	//.innerHTML = "pressed button";
+	//document.getElementById("test").style.display = "none";
+}
 
-    <body>
-        <p>Employee Page</p>
-    </body>
+</script>
+
+</body>
 
 
 
