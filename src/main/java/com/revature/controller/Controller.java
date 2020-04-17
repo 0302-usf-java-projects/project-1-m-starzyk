@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.model.Reimbursement;
@@ -19,7 +22,7 @@ import com.revature.service.AccountService;
 public class Controller {
 	//private AccountServise as; use this once project is done
 	static String username = null;
-	//final static Logger logger = Logger.getLogger(Controller.class);
+	final static Logger logger = Logger.getLogger(Controller.class);
 	
 	public static String home() {
 		return "html/index.html";
@@ -38,10 +41,12 @@ public class Controller {
 		boolean logIt = as.authenticate(username, password);
 		if(logIt) {
 			int role = as.employeeType(username);
-			
+			BasicConfigurator.configure();
 			if(role == 2) {
+				logger.info("Sucsessful Manager Login");
 				return "html/manager.html";
 			} else {
+				logger.info("Successful Employee Login");
 				return "html/employee.html";
 			}
 		} else {
